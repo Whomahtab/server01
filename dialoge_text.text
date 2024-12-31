@@ -1,0 +1,67 @@
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add Package lists items </DialogTitle>
+            <DialogDescription>
+              <span className="block mb-4 pt-1 border-b">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              </span>
+              <span>
+                {state &&
+                  state.packageListTextItems.map((item, id) => {
+                    return (
+                      <span key={id} className="packagesListsWrapper">
+                        <span className="bg-neutral-100 rounded p-1 text-lg flex items-center justify-between my-2">
+                          {item}
+                          <span>
+                            <X
+                              className="size-4   rounded-full text-black cursor-pointer transition-colors ease-out duration-300 hover:bg-orange-300 hover:text-white"
+                              onClick={(e) => {
+                                const removeListItem = packageListItems.filter(
+                                  (pkg) => {
+                                    return pkg.id != item.id;
+                                  }
+                                );
+                                setPackageListsItem(removeListItem);
+                              }}
+                            />
+                          </span>
+                        </span>
+                      </span>
+                    );
+                  })}
+              </span>
+              <span>
+                <form onSubmit={handlePackageListForm(onPackageListFormSubmit)}>
+                  <span className="dialog__footer  flex mt-8 ">
+                    <Input
+                      className="h-10 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-r-none"
+                      placeholder="Add new package lists item"
+                      {...PACKAGE_LIST_FORM("packageItem")}
+                    />
+
+                    <button
+                      type="submit"
+                      className="bg-orange-400 rounded-md w-12 flex items-center justify-center text-white rounded-l-none"
+                    >
+                      <CirclePlus />
+                    </button>
+                  </span>
+                  <span className="text-red-400 capitalize mt-1">
+                    {pkgFormErr && pkgFormErr.packageItem?.message}
+                  </span>
+                </form>
+              </span>
+
+              <span className="flex justify-end mt-4 ">
+                <Button
+                  className="bg-orange-400 hover:bg-orange-300 w-32"
+                  onClick={() => setOpen((prev) => !prev)}
+                >
+                  Done
+                </Button>
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
